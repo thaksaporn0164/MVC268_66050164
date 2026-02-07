@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white"><h4>เพิ่มคำสัญญาใหม่ (Admin)</h4></div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>นักการเมือง</label>
+                        <select name="politician_id" class="form-select" required>
+                            {% for p in politicians %}<option value="{{ p.id }}">{{ p.name }} ({{ p.party }})</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3"><label>รายละเอียด</label><input type="text" name="detail" class="form-control" required></div>
+                    <div class="mb-3"><label>วันที่</label><input type="date" name="date" class="form-control" required></div>
+                    <button type="submit" class="btn btn-success w-100">บันทึก</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

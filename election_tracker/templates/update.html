@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card border-primary">
+    <div class="card-header bg-primary text-white"><h4>อัปเดต: {{ promise.detail }}</h4></div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>สถานะ</label>
+                <select name="status" class="form-select">
+                    <option value="ยังไม่เริ่ม" {% if promise.status == 'ยังไม่เริ่ม' %}selected{% endif %}>ยังไม่เริ่ม</option>
+                    <option value="กำลังดำเนินการ" {% if promise.status == 'กำลังดำเนินการ' %}selected{% endif %}>กำลังดำเนินการ</option>
+                    <option value="เงียบหาย" {% if promise.status == 'เงียบหาย' %}selected{% endif %}>เงียบหาย</option>
+                </select>
+            </div>
+            <div class="mb-3"><label>บันทึกความคืบหน้า</label><textarea name="detail" class="form-control" rows="3"></textarea></div>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+            <a href="/promise/{{ promise.id }}" class="btn btn-secondary">ยกเลิก</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

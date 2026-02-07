@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-dark text-white"><h4>{{ promise.detail }}</h4></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>ข้อมูลนักการเมือง</h5>
+                <p><strong>ชื่อ:</strong> <a href="/politician/{{ politician.id }}">{{ politician.name }}</a></p>
+                <p><strong>พรรค:</strong> {{ politician.party }}</p>
+                {% if campaign %}<p><strong>เขต:</strong> {{ campaign.constituency }} ({{ campaign.year }})</p>{% endif %}
+            </div>
+            <div class="col-md-6">
+                <h5>สถานะ</h5>
+                <p><strong>วันที่:</strong> {{ promise.date }}</p>
+                <p><strong>สถานะ:</strong> <span class="badge {% if promise.status == 'เงียบหาย' %}bg-danger{% elif promise.status == 'กำลังดำเนินการ' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ promise.status }}</span></p>
+            </div>
+        </div>
+        <hr>
+        {% if session.get('role') == 'admin' %}
+            {% if promise.status != 'เงียบหาย' %}
+                <a href="/update/{{ promise.id }}" class="btn btn-primary w-100">อัปเดตสถานะ (Admin)</a>
+            {% else %}
+                <button class="btn btn-secondary w-100" disabled>ปิดการแก้ไข (เงียบหาย)</button>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+<h4>Timeline</h4>
+<div class="list-group">
+    {% for up in updates %}
+    <div class="list-group-item"><div class="d-flex w-100 justify-content-between"><h6 class="mb-1">{{ up.detail }}</h6><small>{{ up.date }}</small></div></div>
+    {% else %}
+    <div class="alert alert-light border">ยังไม่มีการอัปเดต</div>
+    {% endfor %}
+</div>
+{% endblock %}

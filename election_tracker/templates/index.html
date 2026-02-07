@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="mb-3">รายการคำสัญญาทั้งหมด</h2>
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>วันที่</th>
+            <th>คำสัญญา</th>
+            <th>นักการเมือง (พรรค)</th>
+            <th>สถานะ</th>
+            <th>จัดการ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in promises %}
+        <tr>
+            <td>{{ p.date }}</td>
+            <td>{{ p.detail }}</td>
+            <td><a href="/politician/{{ p.politician_id }}">{{ p.politician_name }}</a> ({{ p.politician_party }})</td>
+            <td><span class="badge {% if p.status == 'เงียบหาย' %}bg-danger{% elif p.status == 'กำลังดำเนินการ' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ p.status }}</span></td>
+            <td><a href="/promise/{{ p.id }}" class="btn btn-sm btn-info text-white">รายละเอียด</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
